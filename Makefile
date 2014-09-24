@@ -127,7 +127,7 @@ install-libreg:
 	$(NQ) '  INSTALL  libreg'
 	$(Q)mkdir -p $(DESTDIR)/$(LIBDIR)
 	$(Q)cp $(LIBREG) $(DESTDIR)/$(LIBDIR)/
-	$(Q)ldconfig
+	-$(Q)ldconfig
 
 %.o: %.c regdb.h $(LIBREG)
 	$(NQ) '  CC  ' $@
