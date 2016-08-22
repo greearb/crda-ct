@@ -115,6 +115,8 @@ struct key_params {
 	.n = _n, .len_n = sizeof(_n),	\
 }
 
+#pragma GCC diagnostic ignored "-Wunused-const-variable"
+
 static const struct key_params keys[] = {
 ''')
     for n in xrange(n + 1):
