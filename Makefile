@@ -114,19 +114,19 @@ keys-%.c: utils/key2pub.py $(wildcard $(PUBKEY_DIR)/*.pem)
 	$(NQ) '  Trusted pubkeys:' $(wildcard $(PUBKEY_DIR)/*.pem)
 	$(Q)./utils/key2pub.py --$* $(wildcard $(PUBKEY_DIR)/*.pem) $@
 
-$(LIBREG): regdb.h reglib.h reglib.c
+$(LIBREG): reglib.c regdb.h reglib.h
 	$(NQ) '  CC  ' $@
-	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -shared -Wl,-soname,$(LIBREG) $^
+	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -shared -Wl,-soname,$(LIBREG) $<
 
 install-libreg-headers:
 	$(NQ) '  INSTALL  libreg-headers'
 	$(Q)mkdir -p $(DESTDIR)/$(INCLUDE_DIR)
-	$(Q)cp *.h $(DESTDIR)/$(INCLUDE_DIR)/
+	$(Q)$(INSTALL) -m 644 *.h $(DESTDIR)/$(INCLUDE_DIR)/
 
 install-libreg:
 	$(NQ) '  INSTALL  libreg'
 	$(Q)mkdir -p $(DESTDIR)/$(LIBDIR)
-	$(Q)cp $(LIBREG) $(DESTDIR)/$(LIBDIR)/
+	$(Q)$(INSTALL) -m 644 $(LIBREG) $(DESTDIR)/$(LIBDIR)/
 	-$(Q)ldconfig
 
 %.o: %.c regdb.h $(LIBREG)
