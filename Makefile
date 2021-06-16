@@ -112,7 +112,7 @@ $(REG_BIN):
 keys-%.c: utils/key2pub.py $(wildcard $(PUBKEY_DIR)/*.pem)
 	$(NQ) '  GEN ' $@
 	$(NQ) '  Trusted pubkeys:' $(wildcard $(PUBKEY_DIR)/*.pem)
-	$(Q)./utils/key2pub.py --$* $(wildcard $(PUBKEY_DIR)/*.pem) $@
+	$(Q)./utils/key2pub.py --$* $(wildcard $(PUBKEY_DIR)/*.pem) $@ || python3 ./utils/key2pub.py3 --$* $(wildcard $(PUBKEY_DIR)/*.pem) $@ 
 
 $(LIBREG): reglib.c regdb.h reglib.h
 	$(NQ) '  CC  ' $@
